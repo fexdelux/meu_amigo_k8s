@@ -24,19 +24,21 @@ echo 'deb http://deb.debian.org/debian buster-backports main' > /etc/apt/sources
 apt update
 apt install -y -t buster-backports libseccomp2 || apt update -y -t buster-backports libseccomp2
 ````
-Precisa informar em qual Distribuição voce esta usando conform a tabela:
-| Operating system |$OS             |
-|------------------|:--------------:|
-| Debian Unstable  | Debian_Unstable|
-| Debian Testing   | Debian_Testing |
-| Debian 11        | Debian_11      |
-| Ubuntu 22.04     | xUbuntu_22.04  |
-| Ubuntu 20.04     | xUbuntu_20.04  |
-| Ubuntu 19.10     | xUbuntu_19.10  |
-| Ubuntu 19.04     | xUbuntu_19.04  |
-| Ubuntu 18.04     | xUbuntu_18.04  |
+### Instalando o CRI-O
 
-E para informa tem que passar uma variavel de ambiente `$OS`.
+Precisa informar em qual Distribuição voce esta usando conform a tabela:
+| Sistem Operacional |$OS             |
+|--------------------|:--------------:|
+| Debian Unstable    | Debian_Unstable|
+| Debian Testing     | Debian_Testing |
+| Debian 11          | Debian_11      |
+| Ubuntu 22.04       | xUbuntu_22.04  |
+| Ubuntu 20.04       | xUbuntu_20.04  |
+| Ubuntu 19.10       | xUbuntu_19.10  |
+| Ubuntu 19.04       | xUbuntu_19.04  |
+| Ubuntu 18.04       | xUbuntu_18.04  |
+
+Deve ser informado uma variavel de ambiente `$OS` para defivir qual o sua distribuição.
 A versão do CRI-O também precisa ser informando na variavel de ambiente `VERSION_CRIO`.
 
 ````bash     
@@ -54,7 +56,6 @@ curl -L "https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:
 apt-get update
 apt-get install cri-o cri-o-runc
 
-### editar o arquivo /etc/crio/crio.conf
 systemctl daemon-reload
 systemctl enable crio
 systemctl start crio
@@ -65,7 +66,6 @@ systemctl start crio
 Agora podemos instalar o kubernetes para todas as maquinas que serão do cluster:
 
 ````bash
-
 cat <<EOF | tee /etc/modules-load.d/k8s.conf
 br_netfilter
 ip_vs_rr
